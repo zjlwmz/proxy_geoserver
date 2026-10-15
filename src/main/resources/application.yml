@@ -1,0 +1,24 @@
+server:
+  port: 8080
+
+geoserver:
+  # 仅填写上游源地址；{gateway-path}/** 会在此服务器上变为 {base-path}/**。
+  upstream: http://39.106.68.85:9051
+  gateway-path: /gis_server
+  base-path: /TDPJ_geoserver_proxy
+  aes:
+    # 旧版 CND_PARAMS 协议：AES/CBC/PKCS5Padding，密钥同时用作初始向量。
+    key: "qP2$bG9;vA0^uW0:"
+
+spring:
+  cloud:
+    gateway:
+      # Gateway 的 CORS 处理器也会处理浏览器发起的 OPTIONS 预检请求。
+      globalcors:
+        add-to-simple-url-handler-mapping: true
+        cors-configurations:
+          '[/**]':
+            allowed-origins: "*"
+            allowed-methods: "*"
+            allowed-headers: "*"
+            allow-credentials: false
